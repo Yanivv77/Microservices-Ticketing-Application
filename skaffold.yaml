@@ -1,0 +1,19 @@
+apiVersion: skaffold/v2beta28
+kind: Config
+metadata:
+  name: microservices-ticketing-application
+build:
+  # local:
+  #   push: false
+  googleCloudBuild: 
+    projectId: ticketing-dev-345419
+  artifacts:
+  - image: us.gcr.io/ticketing-dev-345419/auth
+    context: services/auth
+    docker:
+      dockerfile: Dockerfile
+deploy:
+  kubectl:
+    manifests:
+    - infra/k8s/auth-depl.yaml
+    - infra/k8s-prod/ingress-srv.yaml

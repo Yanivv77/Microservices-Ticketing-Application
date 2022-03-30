@@ -15,7 +15,7 @@ it('returns a 400 with an invalid email', async () => {
   return request(app)
     .post('/api/users/signup')
     .send({
-      email: 'a4lsk4df4la4skj4fd',
+      email: 'alskdflaskjfd',
       password: 'password'
     })
     .expect(400);
@@ -25,7 +25,7 @@ it('returns a 400 with an invalid password', async () => {
   return request(app)
     .post('/api/users/signup')
     .send({
-      email: 'al2sk2dfl2as2kj2fd',
+      email: 'alskdflaskjfd',
       password: 'p'
     })
     .expect(400);
@@ -42,12 +42,12 @@ it('returns a 400 with missing email and password', async () => {
   await request(app)
     .post('/api/users/signup')
     .send({
-      password: 'al2skj2df'
+      password: 'alskjdf'
     })
     .expect(400);
 });
 
-it('not allow duplicate emails', async () => {
+it('disallows duplicate emails', async () => {
   await request(app)
     .post('/api/users/signup')
     .send({
@@ -63,4 +63,16 @@ it('not allow duplicate emails', async () => {
       password: 'password'
     })
     .expect(400);
+});
+
+it('sets a cookie after successful signup', async () => {
+  const response = await request(app)
+    .post('/api/users/signup')
+    .send({
+      email: 'test@test.com',
+      password: 'password'
+    })
+    .expect(201);
+
+  expect(response.get('Set-Cookie')).toBeDefined();
 });

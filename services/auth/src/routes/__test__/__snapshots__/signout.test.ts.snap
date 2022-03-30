@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`clears the cookie after signing out 1`] = `
+Array [
+  "session=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT; httponly",
+]
+`;
